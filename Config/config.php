@@ -16,8 +16,7 @@ return [
     'version'     => '1.0.0',
     'services' => [
         'events'  => [],
-        'forms'   => [
-        ],
+        'forms'   => [],
         'helpers' => [],
         'other'   => [
             'mautic.sms.transport.mex10' => [
@@ -43,7 +42,24 @@ return [
         ],
     ],
     'routes'     => [],
-    'menu'       => [],
-    'parameters' => [
+    'menu' => [
+        'main' => [
+            'items' => [
+                'mautic.sms.smses' => [
+                    'route'  => 'mautic_sms_index',
+                    'access' => ['sms:smses:viewown', 'sms:smses:viewother'],
+                    'parent' => 'mautic.core.channels',
+                    'checks' => [
+                        'integration' => [
+                            'Mex10' => [
+                                'enabled' => true,
+                            ],
+                        ],
+                    ],
+                    'priority' => 70,
+                ],
+            ],
+        ],
     ],
+    'parameters' => [],
 ];
